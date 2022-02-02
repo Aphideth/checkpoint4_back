@@ -42,11 +42,11 @@ const deleteById = (id) => {
 
 // CREATE
 const createNew = (recipe) => {
-  const { title } = recipe;
+  const { name, image, description, id_category } = recipe;
   return new Promise((resolve, reject) => {
     dbConnect.query(
-      "INSERT INTO recipe (title) VALUES (?)",
-      title,
+      "INSERT INTO recipe (name, image, description, id_category) VALUES (?, ?, ?, ?)",
+      [name, image, description, id_category],
       (err, result) => {
         if (err) reject(err);
         else resolve(result.insertId);
@@ -56,12 +56,11 @@ const createNew = (recipe) => {
 };
 
 // UPDATE
-const updateMovie = (recipe) => {
-  const { title, id } = recipe;
+const updateRecipe = (id, recipe) => {
   return new Promise((resolve, reject) => {
     dbConnect.query(
-      "UPDATE recipe SET title = ? WHERE id = ?",
-      [title, id],
+      "UPDATE recipe SET ? WHERE id = ?",
+      [recipe, id],
       (err, result) => {
         if (err) reject(err);
         else resolve(result);
@@ -71,4 +70,4 @@ const updateMovie = (recipe) => {
 };
 
 // exporter toutes les fonctions du model
-export default { getAll, getOneById, deleteById, createNew, updateMovie };
+export default { getAll, getOneById, deleteById, createNew, updateRecipe };
