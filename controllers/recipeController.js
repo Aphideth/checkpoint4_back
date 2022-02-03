@@ -46,7 +46,6 @@ router.post("/", async (req, res) => {
       id_category,
     });
     const lastInsertId = await Recipe.createNew(value);
-    console.log(lastInsertId);
     if (lastInsertId) {
       const newRecipe = await Recipe.getOneById(lastInsertId);
       res.json(newRecipe);
